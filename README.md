@@ -1,14 +1,11 @@
-Running App
-~~~~~~~~~~~
+#Running App
 
 ```
 npm install
 npm start
 ```
 
-
-TODO
-~~~~
+#TODO
 
 1. Set up a build system (gulp, brunch)
 2. Language support (Jade, [Iced]CoffeeScrip, TypeScript, Sass or other)
