@@ -4,6 +4,7 @@
   },
   "main": "app.js",
   "devDependencies": {
-    "express": "~4.10.7"
+    "socket.io" : "0.9.16",
+    "ws" : "0.4.31"
   }
 }
