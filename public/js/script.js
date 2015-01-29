@@ -37,12 +37,12 @@ app.config(function($routeProvider) {
 	$routeProvider
 		// route for the home page
 		.when('/', {
-			templateUrl : 'views/home.html',
+			templateUrl : 'views/index.html',
 			controller  : 'homeController'
 		})
-		.when('/info', {
+		.when('/home', {
 
-			templateUrl : 'views/info.html',
+			templateUrl : 'views/home.html',
 			controller  : 'infoController'
 		})
 });
@@ -51,6 +51,7 @@ app.config(function($routeProvider) {
 app.controller('infoController', function($scope) {
 	// create a message to display in our view
 	$scope.status = " Sign out";
+  $scope.content = "There are no items to view";
 });
 
 app.controller('homeController', function($scope) {

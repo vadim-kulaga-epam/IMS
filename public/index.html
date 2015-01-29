@@ -65,7 +65,15 @@
                      <input class="form-control" placeholder="Password">
                      <br>
                      <p>If you don&apos;t want to enter login and password manually use the link below<p>
-                     <a href="#info" class="btn btn-lg btn-primary btn-block" ng-click="cancel()">Login to IMS</a>
+                     <a href="#home" class="btn btn-lg btn-primary btn-block" ng-click="cancel()">Login to IMS</a>
+                     <div>
+                       <br>
+                       <p><strong>IMS</strong> &mdash; Item Management System</p>
+                       <p><strong>Item</strong> &mdash; things that are provided to EPAM employees free of charge for ensuring comfortable working conditions like tea, coffee, kitchenware, stationary etc.<p>
+                       <p><strong>Item Status</strong> &mdash; a state of the particular Item at the moment. It can be one of the following: Available, Order Submitted, Order In Progress, Order Deferred.</p>
+                       <p>Item Management System is designed to automate and thus simplify the process of items ordering conducted by EPAM employees on a daily basis. Note: Only responsible persons should have an ability to order items in IMS. Need to provide corresponding roles in IMS app for this. Responsible User should be a user with such permissions when other EPAM employees should be able to view Item list only.</p>
+                       <p>Apart from its main goal the system will allow to store statistics on the distributed items and view it in the form of reports. [IM 130416] Statistic should be used not only for reporting but to notify Item Manager about lack of items in particular location (Room) based on average consumption rate.</p>
+                      </div>
                    </form>
 
                  </div>
@@ -86,27 +94,7 @@
     <!-- angular templating -->
     <!-- this is where content will be injected -->
     <div ng-view></div>
-    
-    </div>
+    </div>  
 
-    <!-- <div role="tabpanel">  -->
-
-    <!-- Nav tabs -->
-    <!-- <ul class="nav nav-tabs nav-pills" role="tablist">
-     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Supplies</a></li>
-      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Settings</a></li>
-      <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">History</a></li>
-      <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Reports</a></li>
-    </ul> -->
-
-    <!-- Tab panes -->
-    <!-- <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="home">...</div>
-      <div role="tabpanel" class="tab-pane" id="profile">...</div>
-      <div role="tabpanel" class="tab-pane" id="messages">...</div>
-      <div role="tabpanel" class="tab-pane" id="settings">...</div>
-    </div>
-  </div> -->
-  
-    </body>
+  </body>
 </html>

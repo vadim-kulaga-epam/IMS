@@ -1,9 +1,41 @@
-<div class="container">
-  <br>
-  <div align="center">
+<div class="nav-tabs">
+<tabset type="pills">
+  <tab heading="Supplies">
   	<br>
   	<br>
-    <img src="pix/epam.png">
-    <h4><strong>{{ message }}</strong></h4>
-  </div>
+
+  	<div class="container" align="center" style="background-image:url('pix/bg.jpg'); background-repeat: no-repeat; width: 800px; height: 1000px">
+	   <tabset>
+	     <tab heading="Item"><br><br><br><br><br><br>{{content}}</tab>
+	     <tab heading="Status"><br><br><br><br><br><br>{{content}}</tab>
+	     <tab heading="Last Modified"><br><br><br><br><br><br>{{content}}</tab>
+	     <tab heading="Action"><br><br><br><br><br><br>{{content}}</tab>
+	   </tabset>	   
+     </div>
+
+     <div class="container" align="center">
+       <form class="form-inline">
+
+	     <select class="form-control">
+	       <option>Category</option>
+	       <option>All</option>
+	       <option>Provision</option>
+	       <option>Kitchenware</option>
+	       <option>Kitchenware</option>
+	     </select>  	      
+
+         <select class="form-control">
+           <option>Status</option>
+	       <option>All</option>
+	       <option>Available</option>
+	       <option>Order in Progress</option>	         
+	     </select>
+
+	   </form>
+     </div>
+  </tab>
+  <tab heading="Settings">Settings</tab>
+  <tab heading="History">History</tab>
+  <tab heading="Reports">Reports</tab>
+ </tabset> 
 </div>
