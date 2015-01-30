@@ -1,7 +1,22 @@
 var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
 
 app.controller('ModalCtrl', function ($scope, $modal) {
-  $scope.status=" Sign in"
+  $scope.status=" Sign in";
+
+  $scope.items = [
+    {name: "tea",
+    status: "Available"},
+
+    {name: "coffee",
+    status: "Available"},
+
+    {name: "kitchenware",
+    status: "Available"},
+
+    {name: "stationary",
+    status: "Available"}
+  ];
+
   $scope.open = function () {
 
     var modalInstance = $modal.open({
@@ -10,6 +25,23 @@ app.controller('ModalCtrl', function ($scope, $modal) {
     });
   };
 
+$scope.sweetAlert = function (num, name, status) {
+  switch(num) {
+    case 0:
+        swal("Here's a message!");
+        break;
+    case 1:
+        sweetAlert("Oops...", "Something went wrong!", "error");
+        break;
+    case 2:
+        swal("Good job!", "You clicked the button!", "success");
+        break;
+      case 3: 
+        swal({   title: "Are you sure to order " + name + "?",   text: "If Yes please specify amount of the " + name + " to be ordered:",   type: "warning",   showCancelButton: true,   confirmButtonText: "Yes",   cancelButtonText: "No",   closeOnConfirm: false,   closeOnCancel: true }, function(isConfirm){   if (isConfirm) {     swal("Ordered!", name + " has been ordered.", "success");   }});
+        status = "Order Submitted";
+        break;
+  }
+};
 });
 
 
