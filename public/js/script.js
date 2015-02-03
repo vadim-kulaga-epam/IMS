@@ -22,26 +22,13 @@
             });
         };
 
-        $scope.sweetAlert = function (num, name, status) {
-            switch (num) {
-                case 0:
-                    swal("Here's a message!");
-                    break;
-                case 1:
-                    sweetAlert("Oops...", "Something went wrong!", "error");
-                    break;
-                case 2:
-                    swal("Good job!", "You clicked the button!", "success");
-                    break;
-                case 3:
-                    swal({title: "Are you sure to order " + name + "?", text: "If Yes please specify amount of the " + name + " to be ordered:", type: "warning", showCancelButton: true, confirmButtonText: "Yes", cancelButtonText: "No", closeOnConfirm: false, closeOnCancel: true}, function (isConfirm) {
-                        if (isConfirm) {
-                            swal("Ordered!", name + " has been ordered.", "success");
-                        }
-                    });
-                    status = "Order Submitted";
-                    break;
+        $scope.sweetAlert = function (name, status) {
+          swal({title: "Are you sure to order " + name + "?", text: "If Yes please specify amount of the " + name + " to be ordered:", type: "warning", showCancelButton: true, confirmButtonText: "Yes", cancelButtonText: "No", closeOnConfirm: false, closeOnCancel: true}, function (isConfirm) {
+            if (isConfirm) {
+              swal("Ordered!", name + " has been ordered.", "success");
             }
+          });
+          status = "Order Submitted";            
         };
     });
 
@@ -100,6 +87,7 @@
     app.controller('suppliesController', function ($scope) {
         // create a message to display in our view
         $scope.message = 'Hello Supplies!';
+        $scope.content = "There are no items to view";
     });
     
     app.controller('navbarController', function ($scope) {
