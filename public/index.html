@@ -16,89 +16,9 @@
 
   </head>
   <body ng-app="app">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <p class="navbar-brand" style="color: #fff">Item Managment System</p>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">    
-          <form class="navbar-form navbar-right">
-            <div ng-controller="ModalCtrl">
-
-               <!-- Sign Up Modal -->
-               <script type="text/ng-template" id="modalSignUpContent">
-                 <div class="modal-header">
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                   <h4 class="modal-title" id="signupLabel" style="color: #000" align="center">Please sign up {{user}}</h4>
-                 </div>
-                 <div class="modal-body">
-                   <form class="form-signin">
-                     <label class="sr-only">Login</label>
-                     <input class="form-control" placeholder="Login">
-                     <label class="sr-only">Password</label>
-                     <input class="form-control" placeholder="Password">
-                     <br>
-                     <a class="btn btn-lg btn-primary btn-block" ng-click="cancel()">Register</a>
-                   </form>
-                 </div>
-                 <div class="modal-footer">
-                   <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-                  </div>
-               </script>
-
-              <!-- Sign In Modal -->
-              <script type="text/ng-template" id="modalSignInContent">
-                <div class="modal-header">
-                  <h4 class="modal-title" align="center">Please sign in</h4>
-                 </div>
-                 <div class="modal-body">
-
-                   <form class="form-signin">
-                     <label class="sr-only">Email address</label>
-                     <input class="form-control" placeholder="Login" ng-model="user">
-                     <label class="sr-only">Password</label>
-                     <input class="form-control" placeholder="Password">
-                     <br>
-                     <p>If you don&apos;t want to enter login and password manually use the link below<p>
-                     <a href="#home" class="btn btn-lg btn-primary btn-block" ng-click="cancel()">Login to IMS</a>
-                     <div>
-                       <br>
-                       <p><strong>IMS</strong> &mdash; Item Management System</p>
-                       <p><strong>Item</strong> &mdash; things that are provided to EPAM employees free of charge for ensuring comfortable working conditions like tea, coffee, kitchenware, stationary etc.<p>
-                       <p><strong>Item Status</strong> &mdash; a state of the particular Item at the moment. It can be one of the following: Available, Order Submitted, Order In Progress, Order Deferred.</p>
-                       <p>Item Management System is designed to automate and thus simplify the process of items ordering conducted by EPAM employees on a daily basis. Note: Only responsible persons should have an ability to order items in IMS. Need to provide corresponding roles in IMS app for this. Responsible User should be a user with such permissions when other EPAM employees should be able to view Item list only.</p>
-                       <p>Apart from its main goal the system will allow to store statistics on the distributed items and view it in the form of reports. [IM 130416] Statistic should be used not only for reporting but to notify Item Manager about lack of items in particular location (Room) based on average consumption rate.</p>
-                      </div>
-                   </form>
-
-                 </div>
-                 <div class="modal-footer"  ng-controller="ModalCtrl">
-                   <button class="btn btn-default" ng-click="cancel()">Close</button>
-                   <button class="btn btn-primary" ng-click="signup()">Sign up</button>
-                 </div>
-              </script>
-
-              <button class="btn btn-default" ng-click="open()"><i class="fa fa-sign-in"></i>{{status}}</button>
-            </div>          
-          </form>
-        </div>
-      </div>
-    </nav>
-    <div id="main">
-  
-    <!-- angular templating -->
     <!-- this is where content will be injected -->
-    <div ng-view></div>
-    </div>  
-
+    <div ng-view></div>      
+    
   </body>
 </html>

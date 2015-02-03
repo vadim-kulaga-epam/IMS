@@ -1,7 +1,6 @@
 var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
 
 app.controller('ModalCtrl', function ($scope, $modal) {
-  $scope.status=" Sign in";
 
   $scope.items = [
     {name: "tea",
@@ -73,20 +72,27 @@ app.config(function($routeProvider) {
 			controller  : 'homeController'
 		})
 		.when('/home', {
-
 			templateUrl : 'views/home.html',
 			controller  : 'infoController'
 		})
+    .when('/supplies',{
+      templateUrl : 'views/supplies.html',
+      controller  : 'suppliesController'
+    })
 });
 
 // create the controller and inject Angular's $scope
 app.controller('infoController', function($scope) {
 	// create a message to display in our view
-	$scope.status = " Sign out";
   $scope.content = "There are no items to view";
 });
 
 app.controller('homeController', function($scope) {
 	// create a message to display in our view
 	$scope.message = 'Hello! Welcome to IMS.';
+});
+
+app.controller('suppliesController', function($scope) {
+  // create a message to display in our view
+  $scope.message = 'Hello Supplies!';
 });

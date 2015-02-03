@@ -1389,7 +1389,7 @@ pre code {
 }
 .container {
   padding-right: 15px;
-  padding-left: 15px;
+  /*padding-left: 15px;*/
   margin-right: auto;
   margin-left: auto;
 }
@@ -3763,8 +3763,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #fff;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #222;
+  border-color: #222;
   border-radius: 0px;
 }
 .nav-stacked > li {
