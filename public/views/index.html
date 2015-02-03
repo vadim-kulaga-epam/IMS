@@ -1,4 +1,5 @@
-<nav class="navbar navbar-inverse container" style="border-color: #222">
+<div style="background-color: #222; width: 100%; height: 100vh" >
+<nav class="navbar navbar-inverse container" style="border-color: #222" ng-init="setVisible(false)">
   <div>
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -51,7 +52,7 @@
                  <input class="form-control" placeholder="Password">
                  <br>
                  <p>If you don&apos;t want to enter login and password manually use the link below<p>
-                 <a href="#home" class="btn btn-lg btn-default btn-block" ng-click="cancel()">Login to IMS</a>
+                 <a href="#supplies"  class="btn btn-lg btn-default btn-block" ng-click="cancel()">Login to IMS</a>
                  <div>
                    <br>
                    <p><strong>IMS</strong> &mdash; Item Management System</p>
@@ -73,7 +74,7 @@
   </div>
 </nav>
 
-<div style="background-color: #222" class="container">
+<div class="container" >
   <img src="pix/bg_head.jpg" width="100%">
   <h1 style="color: #fff" align="center"><strong>Welcome to IMS!</strong></h1>
 
@@ -86,3 +87,4 @@
     <br>
   </div>
 </div>
+    </div>
