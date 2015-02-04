@@ -60,25 +60,25 @@
                     templateUrl: 'views/index.html',
                     controller: 'homeController'
                 })
-                .when('/home', {
-                    templateUrl: 'views/home.html',
-                    controller: 'infoController'
-                })
                 .when('/supplies', {
                     templateUrl: 'views/supplies.html',
                     controller: 'suppliesController'
                 })
                 .when('/settings', {
-                    templateUrl: 'views/settings.html'
+                    templateUrl: 'views/settings.html',
+                    controller: 'settingsController'
                 })
+                .when('/history', {
+                    templateUrl: 'views/history.html',
+                    controller: 'historyController'
+                })
+                .when('/reports', {
+                    templateUrl: 'views/reports.html',
+                    controller: 'reportsController'
+                });
     });
 
 // create the controller and inject Angular's $scope
-    app.controller('infoController', function ($scope) {
-        // create a message to display in our view
-        $scope.content = "There are no items to view";
-    });
-
     app.controller('homeController', function ($scope) {
         // create a message to display in our view
         $scope.message = 'Hello! Welcome to IMS.';
@@ -88,6 +88,21 @@
         // create a message to display in our view
         $scope.message = 'Hello Supplies!';
         $scope.content = "There are no items to view";
+    });
+    
+    app.controller('settingsController', function ($scope) {
+        // create a message to display in our view
+        $scope.message = 'Hello Settings!';
+    });
+    
+    app.controller('historyController', function ($scope) {
+        // create a message to display in our view
+        $scope.message = 'Hello History!';
+    });
+    
+    app.controller('reportsController', function ($scope) {
+        // create a message to display in our view
+        $scope.message = 'Hello Reports!';
     });
     
     app.controller('navbarController', function ($scope) {
