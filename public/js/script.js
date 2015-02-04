@@ -75,19 +75,17 @@
 
 // create the controller and inject Angular's $scope
     app.controller('infoController', function ($scope) {
-        // create a message to display in our view
-        $scope.content = "There are no items to view";
     });
 
     app.controller('homeController', function ($scope) {
         // create a message to display in our view
-        $scope.message = 'Hello! Welcome to IMS.';
+        //$scope.message = 'Hello! Welcome to IMS.';
     });
 
     app.controller('suppliesController', function ($scope) {
         // create a message to display in our view
-        $scope.message = 'Hello Supplies!';
-        $scope.content = "There are no items to view";
+        //$scope.message = 'Hello Supplies!';
+        //$scope.content = "There are no items to view";
     });
     
     app.controller('navbarController', function ($scope) {
