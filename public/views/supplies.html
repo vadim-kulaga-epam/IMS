@@ -3,34 +3,33 @@
   <div class="nav-tabs container">
     <div align="center">
 	  <tabset>
-	    <tab ng-controller="ModalCtrl" heading="Item">
-	      <table>
-		    <thead>
-		      <th>Item</th>
-		      <th>Item Status</th>
-		      <th>Item Price</th>
-		      <th>Room</th>
-		      <th>Order</th>
-		      <th>Order Status</th>
-		    </thead>
-		    <tbody>
-		      <tr ng-repeat="i in items">
-			    <td>{{i.name}}</td>
-			    <td>{{i.name}}</td>
-			    <td>{{i.name}}</td>
-			    <td>{{i.name}}</td>
-			    <td>
-			      <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
-			    </td>
-			    <td>{{i.status}}</td>	
-			  </tr>
-		    </tbody>
-		  </table>
-        </tab>
-	    <tab heading="Status">{{content}}</tab>
-	    <tab heading="Last Modified">{{content}}</tab>
-	    <tab heading="Action">{{content}}</tab>
+	    <tab heading="Item"></tab>
+	    <tab heading="Status"></tab>
+	    <tab heading="Last Modified"></tab>
+	    <tab heading="Action"></tab>
 	  </tabset>	   
+	  <table ng-controller="ModalCtrl">
+	    <thead>
+	      <th>Item</th>
+	      <th>Item Status</th>
+	      <th>Item Price</th>
+	      <th>Room</th>
+	      <th>Order</th>
+	      <th>Order Status</th>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="i in items">
+		    <td>{{i.name}}</td>
+		    <td>{{i.name}}</td>
+		    <td>{{i.name}}</td>
+		    <td>{{i.name}}</td>
+		    <td>
+		      <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
+		    </td>
+		    <td>{{i.status}}</td>	
+		  </tr>
+	    </tbody>
+	  </table>
     </div>
 
     <div class="container" align="center">
