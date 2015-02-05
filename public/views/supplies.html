@@ -1,57 +1,93 @@
 <div ng-init="setTab(1)">
-  
-  <div class="nav-tabs container">
-    <div align="center">
-	  <tabset>
-	    <tab heading="Item"></tab>
-	    <tab heading="Status"></tab>
-	    <tab heading="Last Modified"></tab>
-	    <tab heading="Action"></tab>
-	  </tabset>	   
-	  <table ng-controller="ModalCtrl">
-	    <thead>
-	      <th>Item</th>
-	      <th>Item Status</th>
-	      <th>Item Price</th>
-	      <th>Room</th>
-	      <th>Order</th>
-	      <th>Order Status</th>
-	    </thead>
-	    <tbody>
-	      <tr ng-repeat="i in items">
-		    <td>{{i.name}}</td>
-		    <td>{{i.name}}</td>
-		    <td>{{i.name}}</td>
-		    <td>{{i.name}}</td>
-		    <td>
-		      <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
-		    </td>
-		    <td>{{i.status}}</td>	
-		  </tr>
-	    </tbody>
-	  </table>
-    </div>
+ 
+  <br>
 
-    <div class="container" align="center">
-      <form class="form-inline">
+  <div class="container" align="center">
+    <form class="form-inline">
 
-	    <select class="form-control">
-	      <option>Category</option>
-	      <option>All</option>
-	      <option>Provision</option>
-	      <option>Kitchenware</option>
-	      <option>Station</option>
-	    </select>  	      
+      <select class="form-control">
+        <option>Category</option>
+        <option>All</option>
+        <option>Provision</option>
+        <option>Kitchenware</option>
+        <option>Station</option>
+      </select>  	      
 
-        <select class="form-control">
-          <option>Status</option>
-	      <option>All</option>
-	      <option>Available</option>
-	      <option>Order in Progress</option>	         
-	    </select>
+      <select class="form-control">
+        <option>Status</option>
+        <option>All</option>
+        <option>Available</option>
+        <option>Order in Progress</option>	         
+      </select>
 
-	  </form>
-    </div>
-    <br>
-</div>
+    </form>
+  </div>
+
+  <br>
+
+  <div class="well container" align="center"> 
+  	<h3>Provision</h3>
+  	<table ng-controller="ModalCtrl">
+      <thead>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in items">
+	      <td>{{i.name}}</td>
+	      <td>{{i.status}}</td>
+	      <td>???</td>
+	      <td>
+	        <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
+	      </td>
+	    </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="well container" align="center"> 
+  	<h3>Kitchenware</h3>
+  	<table ng-controller="ModalCtrl">
+      <thead>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in items">
+	      <td>{{i.name}}</td>
+	      <td>{{i.status}}</td>
+	      <td>???</td>
+	      <td>
+	        <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
+	      </td>
+	    </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="well container" align="center"> 
+  	<h3>Stationary</h3>
+  	<table ng-controller="ModalCtrl">
+      <thead>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in items">
+	      <td>{{i.name}}</td>
+	      <td>{{i.status}}</td>
+	      <td>???</td>
+	      <td>
+	        <button class="btn btn-default" ng-click="sweetAlert(i.name, i.status)">Order Now</button>
+	      </td>
+	    </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
