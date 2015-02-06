@@ -84,11 +84,27 @@
         $scope.message = 'Hello! Welcome to IMS.';
     });
 
-    app.controller('suppliesController', function ($scope) {
-        // create a message to display in our view
-        $scope.message = 'Hello Supplies!';
-        $scope.content = "There are no items to view";
-    });
+    app.controller('suppliesController', ['$http','$scope' , function ($http, $scope) {
+        console.log("supplies!");
+        $http.get("/test")
+                .success(function (data, status, headers, config) {
+                  $scope.tea = data;
+                console.log("Success!");
+                console.log("data:" + data);
+                console.log("status:" + status);
+                console.log("headers:" + headers);
+                console.log("config:" + config);
+              }).
+              error(function (data, status, headers, config) {
+                console.log("Error!");
+                console.log("data:" + data);
+                console.log("status:" + status);
+                console.log("headers:" + headers);
+                console.log("config:" + config);
+              });
+        
+//        $scope.content = "There are no items to view";
+    }]);
     
     app.controller('settingsController', function ($scope) {
         // create a message to display in our view

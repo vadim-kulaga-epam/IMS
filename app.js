@@ -6,46 +6,25 @@ var WebSocketServer = require('ws').Server
 var http = require("http"),
     url = require("url"),
     path = require("path"),
-    fs = require("fs")
+    fs = require("fs"),
+    express = require('express');
+    
+var router = require("./router"),
+    routes = require("./routesHandler")
+    
+var app = express();    
 
-var server = http.createServer(function(request, response) {
+app.set('port', port );
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.bodyParser());
 
-  var uri = url.parse(request.url).pathname
-    , filename = path.join(process.cwd() + '/public', uri);
+app.get('/test', routes.supplies);
 
-  var contentTypesByExtension = {
-    '.html': "text/html",
-    '.css':  "text/css",
-    '.js':   "text/javascript"
-  };
-
-  path.exists(filename, function(exists) {
-    if(!exists) {
-      response.writeHead(404, {"Content-Type": "text/plain"});
-      response.write("404 Not Found\n");
-      response.end();
-      return;
-    }
-
-    if (fs.statSync(filename).isDirectory()) filename += '/index.html';
-
-    fs.readFile(filename, "binary", function(err, file) {
-      if(err) {        
-        response.writeHead(500, {"Content-Type": "text/plain"});
-        response.write(err + "\n");
-        response.end();
-        return;
-      }
-
-      var headers = {};
-      var contentType = contentTypesByExtension[path.extname(filename)];
-      if (contentType) headers["Content-Type"] = contentType;
-      response.writeHead(200, headers);
-      response.write(file, "binary");
-      response.end();
-    });
-   });
-});
+var server = http.createServer(app);
 
 server.listen( port, ipaddress, function() {
     console.log((new Date()) + ' Server is listening on port 8080');
@@ -70,12 +49,12 @@ console.log("Listening to " + ipaddress + ":" + port + "...");
 // // Config
 // var DEV_PORT = 3000
 // var PROD_PORT = 80
-
+//
 // var app = express()
-
+//
 // // Actually, it should be a build directory, e.g. .tmp
 // app.use('/', express.static(__dirname + '/public'))
-
+//
 // // Environment-dependent configuration
 // var env = process.env.NODE_ENV || 'development'
 // if (env == 'production') {
@@ -83,7 +62,7 @@ console.log("Listening to " + ipaddress + ":" + port + "...");
 // } else {
 //   var PORT = DEV_PORT
 // }
-
+//
 // // Run server
 // app.listen(PORT, function() {
 //   console.info('Server is listening on port ' + PORT)
