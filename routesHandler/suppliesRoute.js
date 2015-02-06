@@ -1,13 +1,17 @@
 var mongodb = require('../db');
 
-module.exports = function () {
-  mongodb.getAll(function (results, cb) {
+module.exports = function (request, response) {
+  var res = "response";
+  mongodb.getAll(function (results, dbCloseCallback) {
     //var db = {game: []};
     console.log("results[0].name=" + results[0].name);
-    cb();
+    res = results[0].name;
+    dbCloseCallback();
+    response.write(res);
+    response.end();
   });
   console.log("Join in supplies route.");
-  return "Hello supplies";
+  return res;
 };
 
 
