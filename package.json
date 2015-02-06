@@ -6,6 +6,7 @@
   "devDependencies": {
     "socket.io" : "0.9.16",
     "ws" : "0.4.31",
-    "mongodb": "1.4.30"
+    "mongodb": "1.4.30",
+    "express": "3.19.2"
   }
 }
