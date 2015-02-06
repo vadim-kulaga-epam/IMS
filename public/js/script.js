@@ -120,4 +120,21 @@
         };
     });
 
+    app.directive('ordercancel', function () {
+    return {
+        restrict: 'A',
+        template: '<input value="">',
+        link: function (scope, elem, attrs) {
+            elem.bind("click", function () {
+                console.log('ordercancel clicked', elem)
+                if (elem.val() == "Cancel") {
+                    elem.val("Order Now");
+                } else {
+                    elem.val("Cancel");
+                }
+            })
+        }
+    }
+});
+
 })();
