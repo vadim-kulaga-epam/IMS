@@ -4,14 +4,107 @@
     app.controller('ModalCtrl', function ($scope, $modal) {
 
         $scope.items = [
-            {name: "tea",
-                status: "Available"},
-            {name: "coffee",
-                status: "Available"},
-            {name: "kitchenware",
-                status: "Available"},
-            {name: "stationary",
-                status: "Available"}
+
+            // Provision
+
+            {
+                name: "Black Tea",
+                status: "Available"
+            },
+            {
+                name: "Green Tea",
+                status: "Available"               
+            },
+            {
+                name: "Red Tea",
+                status: "Available"
+            },
+            {
+                name: "Flavored Tea",
+                status: "Available"
+            },
+            {
+                name: "Ground Coffee",
+                status: "Available"
+            },
+            {
+                name: "Instant Coffee",
+                status: "Available"
+            },
+            {
+                name: "Cocoa",
+                status: "Available"
+            },
+            {
+                name: "Tea",
+                status: "Available"
+            },
+            {
+                name: "Sugar",
+                status: "Available"
+            },
+
+            // Kitchenware
+
+            {
+                name: "Cups",
+                status: "Available"
+            },
+            {
+                name: "Dishes",
+                status: "Available"
+            },
+            {
+                name: "Forks",
+                status: "Available"
+            },
+            {
+                name: "Spoons",
+                status: "Available"
+            },
+            {
+                name: "Sticks",
+                status: "Available"
+            },
+            {
+                name: "Serviettes",
+                status: "Available"
+            },
+            {
+                name: "Sponges",
+                status: "Available"
+            },
+            {
+                name: "Washing Liquid",
+                status: "Available"
+            },
+            {
+                name: "Garbage bags",
+                status: "Available"
+            },
+            {
+                name: "Other Kitchenware",
+                status: "Available"
+            },
+
+            // Stationary
+
+            {
+                name: "Print Paper",
+                status: "Available"
+            },
+            {
+                name: "Print Ink",
+                status: "Available"
+            },
+            {
+                name: "Writing tools",
+                status: "Available"
+            },
+            {
+                name: "Other Stationary",
+                status: "Available"
+            }
         ];
 
         $scope.open = function () {
