@@ -3,16 +3,16 @@
 
     app.controller('ModalCtrl', function ($scope, $modal) {
 
-//        $scope.items = [
-//            {name: "tea",
-//                status: "Available"},
-//            {name: "coffee",
-//                status: "Available"},
-//            {name: "kitchenware",
-//                status: "Available"},
-//            {name: "stationary",
-//                status: "Available"}
-//        ];
+        $scope.items = [
+            {name: "tea",
+                status: "Available"},
+            {name: "coffee",
+                status: "Available"},
+            {name: "kitchenware",
+                status: "Available"},
+            {name: "stationary",
+                status: "Available"}
+        ];
 
         $scope.open = function () {
 
@@ -86,7 +86,7 @@
 
     app.controller('suppliesController', ['$http', '$scope', function ($http, $scope) {
             console.log("supplies!");
-            $http.get("/supplies/Provision")
+            $http.get("/user")
                     .success(function (data, status, headers, config) {
                         $scope.items = data;
                         //$scope.tea = data;
