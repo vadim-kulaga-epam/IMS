@@ -18,9 +18,10 @@ exports.getByLogin = function (login, handleCallback, errorCallback) {
 var getUserByFilterWithRole = function (filter, callback, errorCallback) {
     connectToDataBase(function (db) {
         db.collection('User').find(filter).toArray(function (err, resultsUser) {
+            if (err) next(err);
             if (resultsUser.length === 0) {
-                logger.warn("No find user.");
-                errorCallback();
+                logger.warn("Login not exists!");
+                errorCallback(403, "Login not exists!");
                 logger.warn("db close");
                 db.close();
                 return;
@@ -29,9 +30,10 @@ var getUserByFilterWithRole = function (filter, callback, errorCallback) {
             logger.info("User loaded %s", user.login);
             var cursor = db.collection('Role').find({"_id": ObjectID(user.id_role)});
             cursor.toArray(function (err, resultsRole) {
+                if (err) next(err);
                 if (resultsRole.length === 0) {
                     logger.warn("No find role.");
-                    errorCallback();
+                    errorCallback(404);
                     logger.warn("db close");
                     db.close();
                     return;
