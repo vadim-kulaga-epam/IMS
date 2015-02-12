@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
+    var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'ngCookies']);
 
     app.controller('ModalCtrl', function ($scope, $modal) {
 
@@ -36,21 +36,6 @@
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-    app.controller('ButtonController', function ($scope, $modalInstance, $modal) {
-
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-
-        $scope.signup = function () {
-            $modalInstance.dismiss('cancel');
-            modalInstance = $modal.open({
-                templateUrl: 'modalSignUpContent',
-                controller: 'ButtonController'
-            });
-
-        };
-    });
 
 // configure our routes
     app.config(function ($routeProvider) {
@@ -86,12 +71,13 @@
 
     app.controller('suppliesController', ['$http', '$scope', function ($http, $scope) {
             console.log("supplies!");
-            $http.get("/user")
+            $http.get("/user/login/admin")
                     .success(function (data, status, headers, config) {
                         $scope.items = data;
-                        //$scope.tea = data;
                         console.log("Success!");
                         console.log("data:" + data);
+                        console.log("login:" + data.login);
+                        console.log("password:" + data.password);
                         console.log("status:" + status);
                         console.log("headers:" + headers);
                         console.log("config:" + config);
@@ -103,8 +89,6 @@
                         console.log("headers:" + headers);
                         console.log("config:" + config);
                     });
-
-//        $scope.content = "There are no items to view";
         }]);
 
     app.controller('settingsController', function ($scope) {
@@ -153,5 +137,48 @@
             }
         }
     });
+
+    //  app.service('authServiceLogin', function($cookieStore, $http) {
+    //     this.login = function(login, password) {
+    //         this.status = {
+    //             authorized: false,
+    //         };
+    //         this.errorMessage = null;
+    //         $http.get('/user/login/' + login)
+    //             .success(function (data, status, headers, config) {
+    //                 if (data.password === password) {
+    //                     console.log("Success!");
+    //                     console.log("Password: " + password);
+    //                     console.log("data:" + login);
+    //                     var user = {
+    //                         id: data.id,
+    //                         login: data.login,
+    //                         password: data.password,
+    //                         role: data.role,
+    //                     };
+    //                     $cookieStore.put("user", user);
+    //                     this.status.authorized = true;
+    //                     return this.errorMessage;
+    //                 } else {
+    //                     console.log("Error! User doesn't exists!");
+    //                     console.log("Password: " + password);
+    //                     console.log("data:" + login);
+    //                     this.errorMessage = "There is no user with such login or password"
+    //                     console.log("this.errorMessage: " + this.errorMessage);
+    //                     return this.errorMessage;
+    //                 }
+    //             })
+    //             .error(function (data, status, headers, config) {
+    //                 console.log("Error! User doesn't exists!");
+    //                 console.log("Password: " + password);
+    //                 console.log("data:" + login);
+    //                 this.errorMessage = "There is no user with such login or password"
+    //                 console.log("this.errorMessage: " + this.errorMessage);
+    //                 return this.errorMessage;
+    //             });
+    //             console.log("this.errorMessage: " + this.errorMessage);
+    //     }
+    // })
+
 
 })();

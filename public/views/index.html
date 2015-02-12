@@ -42,21 +42,24 @@
           <script type="text/ng-template" id="modalSignInContent">
             <div class="modal-header">
               <h4 class="modal-title" align="center">Please sign in</h4>
-             </div>
-             <div class="modal-body">
+              </div>
+              <div class="modal-body">
 
-               <form class="form-signin">
-                 <label class="sr-only">Email address</label>
-                 <input class="form-control" placeholder="Login" ng-model="user">
-                 <label class="sr-only">Password</label>
-                 <input class="form-control" placeholder="Password">
-                 <br>
-                 <p>If you don&apos;t want to enter login and password manually use the link below<p>
-                 <a href="#supplies"  class="btn btn-lg btn-default btn-block" ng-click="cancel()">Login to IMS</a>
-                 <div>
-                   <br>
-                   <p><strong>IMS</strong> &mdash; Item Management System</p>
-                   <p><strong>Item</strong> &mdash; things that are provided to EPAM employees free of charge for ensuring comfortable working conditions like tea, coffee, kitchenware, stationary etc.<p>              
+                <form class="form-signin">
+                  <label class="sr-only">Email address</label>
+                  <input class="form-control" placeholder="Login" ng-model="user">
+                  <label class="sr-only">Password</label>
+                  <input class="form-control" placeholder="Password" ng-model="password">
+                  <br>
+                  <div class="alert alert-danger" ng-show="displayErrorMessage" role="alert">{{errorMessage}}</div>
+                  <button class="btn btn-danger" ng-click="signin()">Sign in</button>
+                  <p>If you don&apos;t want to enter login and password manually use the link below<p>
+                  <!--<a href="#supplies"  class="btn btn-lg btn-default btn-block" ng-click="cancel()">Login to IMS</a> -->
+                  <button class="btn btn-lg btn-default btn-block" ng-click="signin()">Login to IMS</button>
+                  <div>
+                    <br>
+                    <p><strong>IMS</strong> &mdash; Item Management System</p>
+                    <p><strong>Item</strong> &mdash; things that are provided to EPAM employees free of charge for ensuring comfortable working conditions like tea, coffee, kitchenware, stationary etc.<p>              
                   </div>
                </form>
 

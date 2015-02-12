@@ -17,9 +17,13 @@ exports.getOneById = function (request, response) {
         logger.debug("results: " + JSON.stringify(results, null, 4));
         response.writeHead(200, {"Content-Type": "application/json"});
         response.write(JSON.stringify(results));
-        response.end();        
+        response.end();
         dbCloseCallback();
-    });
+    }, function () {
+        response.writeHead(404, {"Content-Type": "application/json"});
+        response.end();
+    }
+    );
 };
 
 exports.getOneByLogin = function (request, response) {
@@ -28,7 +32,10 @@ exports.getOneByLogin = function (request, response) {
         logger.debug("results: " + JSON.stringify(results, null, 4));
         response.writeHead(200, {"Content-Type": "application/json"});
         response.write(JSON.stringify(results));
-        response.end();        
+        response.end();
         dbCloseCallback();
+    }, function () {
+        response.writeHead(404, {"Content-Type": "application/json"});
+        response.end();
     });
 };
