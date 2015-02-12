@@ -7,19 +7,22 @@ exports.getAll = function (handleCallback) {
     common.getFromCollectionByFilter('User', {}, handleCallback);
 };
 
-exports.getById = function (id, handleCallback) {
-    getUserByFilterWithRole({"_id": ObjectID(id)}, handleCallback);
+exports.getById = function (id, handleCallback, errorCallback) {
+    getUserByFilterWithRole({"_id": ObjectID(id)}, handleCallback, errorCallback);
 };
 
-exports.getByLogin = function (login, handleCallback) {
-    getUserByFilterWithRole({"login": login}, handleCallback);
+exports.getByLogin = function (login, handleCallback, errorCallback) {
+    getUserByFilterWithRole({"login": login}, handleCallback, errorCallback);
 };
 
-var getUserByFilterWithRole = function (filter, callback) {
+var getUserByFilterWithRole = function (filter, callback, errorCallback) {
     connectToDataBase(function (db) {
         db.collection('User').find(filter).toArray(function (err, resultsUser) {
             if (resultsUser.length === 0) {
                 logger.warn("No find user.");
+                errorCallback();
+                logger.warn("db close");
+                db.close();
                 return;
             }
             var user = resultsUser[0];
@@ -28,6 +31,9 @@ var getUserByFilterWithRole = function (filter, callback) {
             cursor.toArray(function (err, resultsRole) {
                 if (resultsRole.length === 0) {
                     logger.warn("No find role.");
+                    errorCallback();
+                    logger.warn("db close");
+                    db.close();
                     return;
                 }
                 var role = resultsRole[0];
@@ -39,6 +45,7 @@ var getUserByFilterWithRole = function (filter, callback) {
                     db.close();
                 });
             });
+
         });
     });
 }
