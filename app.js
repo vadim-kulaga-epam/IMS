@@ -28,8 +28,9 @@ app.get('/category', routes.category.getAll);
 
 app.get('/user', routes.user.getAll);
 app.get('/user/:id', routes.user.getOneById);
-app.get('/user/login/:login', routes.user.getOneByLogin);
+app.get('/user/login/:login', routes.user.getIdByLogin);
 app.post('/user',routes.user.authorization);
+app.put('/user',routes.user.registration);
 
 app.get('/role', routes.role.getAll);
 
