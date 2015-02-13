@@ -19,33 +19,30 @@ app.controller("ButtonController", function($scope, $modalInstance, $modal, $coo
             $scope.errorMessage = "Field ‘Login’ cannot be empty";
             console.log("this.errorMessage: " + this.errorMessage);
             $scope.displayErrorMessage = true;
-        } else if ($scope.password === undefined)
-    //     $http.post('/user/login', {login: $scope.user, password: $scope.password)
-    //         .success(function (data, status, headers, config) {
-    //             sessionService.createSession(data._id, data.login, data.role);
-    //             // $cookieStore.put("user", user);
-    //             $scope.statusAuth = true;
-    //             $scope.errorMessage = null;
-    //             $scope.displayErrorMessage = false;
-    //             document.location.href = "#supplies";
-    //             $scope.cancel();
-    //         } else {
-    //             console.log("Error! User doesn't exists!");
-    //             console.log("Password: " + $scope.password);
-    //             console.log("data:" + $scope.user);
-    //             $scope.errorMessage = "There is no user with such login or password"
-    //             console.log("this.errorMessage: " + this.errorMessage);
-    //             $scope.displayErrorMessage = true;
-    //         }
-    //         })
-    //         .error(function (data, status, headers, config) {
-    //             console.log("Error! User doesn't exists!");
-    //             console.log("Password: " + $scope.password);
-    //             console.log("data:" + $scope.user);
-    //             $scope.errorMessage = "There is no user with such login or password"
-    //             console.log("this.errorMessage: " + this.errorMessage);
-    //             $scope.displayErrorMessage = true;
-    //         });
+        } else if ($scope.password === undefined) {
+            $scope.errorMessage = "Field ‘Password’ cannot be empty";
+            console.log("this.errorMessage: " + this.errorMessage);
+            $scope.displayErrorMessage = true;
+        } else {
+            $http.post('/user', {login: $scope.user, password: $scope.password})
+                .success(function (data, status, headers, config) {
+                    sessionService.createSession(data._id, data.login, data.role);
+                    // $cookieStore.put("user", user);
+                    $scope.statusAuth = true;
+                    $scope.errorMessage = null;
+                    $scope.displayErrorMessage = false;
+                    document.location.href = "#supplies";
+                    $scope.cancel();
+                })
+                .error(function (data, status, headers, config) {
+                    console.log("Error! User doesn't exists!");
+                    console.log("Password: " + $scope.password);
+                    console.log("data:" + $scope.user);
+                    $scope.errorMessage = "There is no user with such login or password";
+                    console.log("this.errorMessage: " + $scope.errorMessage);
+                    $scope.displayErrorMessage = true;
+                });
+        }
     };
 
 });

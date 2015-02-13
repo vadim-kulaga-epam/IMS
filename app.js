@@ -20,14 +20,17 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 
 app.get('/supplies', routes.supplies.getAll);
 app.get('/supplies/category/:category', routes.supplies.getByCategory);
 app.get('/category', routes.category.getAll);
+
 app.get('/user', routes.user.getAll);
 app.get('/user/:id', routes.user.getOneById);
 app.get('/user/login/:login', routes.user.getOneByLogin);
+app.post('/user',routes.user.authorization);
+
 app.get('/role', routes.role.getAll);
 
 var server = http.createServer(app);

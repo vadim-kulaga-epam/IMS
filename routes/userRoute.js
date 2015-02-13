@@ -19,11 +19,9 @@ exports.getOneById = function (request, response) {
         response.write(JSON.stringify(results));
         response.end();
         dbCloseCallback();
-    }, function () {
-        response.writeHead(404, {"Content-Type": "application/json"});
-        response.end();
-    }
-    );
+    }, function (code, message) {
+        errorCallback(code, message, response);
+    });
 };
 
 exports.getOneByLogin = function (request, response) {
@@ -34,8 +32,32 @@ exports.getOneByLogin = function (request, response) {
         response.write(JSON.stringify(results));
         response.end();
         dbCloseCallback();
-    }, function () {
-        response.writeHead(404, {"Content-Type": "application/json"});
-        response.end();
+    }, function (code, message) {
+        errorCallback(code,message, response);
     });
+};
+
+exports.authorization = function (request, response) {
+    var login = request.body.login;
+    var password = request.body.password;
+    mongodb.user.getByLogin(login, function (results, dbCloseCallback) {
+        if (password === results.password) {
+            logger.info("User logined!");
+            response.writeHead(200, {"Content-Type": "application/json"});
+            response.write(JSON.stringify(results));
+            response.end();
+        } else {
+            logger.warn("Invalid password!");
+            errorCallback(403, "Invalid password!", response);
+        }
+        dbCloseCallback();
+    }, function (code, message) {
+        errorCallback(code, message, response);       
+    });
+}
+
+var errorCallback = function(code, message, response) {
+    response.writeHead(code, {"Content-Type": "application/json"});
+    response.write(message);
+    response.end();
 };

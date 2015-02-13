@@ -1,7 +1,7 @@
 var app = angular.module("app");
 app.service("sessionService", function () {
   this.createSession = function (userId, login, userRole) {
-    this.id = sessionId;
+    this.id = Math.random();
     this.userId = userId;
     this.login = login
     this.userRole = userRole;
