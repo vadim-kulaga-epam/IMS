@@ -26,10 +26,10 @@
           <div class="modal-body">
             <form class="form-signin" name="registerForm" novalidate>
               <label class="sr-only">Login</label>
-             <!-- <span class="label label-danger" ng-show="loginExists()">minlength = 5!</span>-->
+              <span class="label label-danger" ng-show="isLoginExists">Login exists yet!!</span>
               <input class="form-control" placeholder="Login" ng-model="inputLogin">
               <label class="sr-only">Password</label>
-              <input class="form-control" placeholder="Password">
+              <input class="form-control" placeholder="Password" ng-model="inputPassword">
               <br>
               <a class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</a>
             </form>

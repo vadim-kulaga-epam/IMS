@@ -1,27 +1,32 @@
 var app = angular.module("app");
 app.controller("ButtonController", function($scope, $modalInstance, $modal, $cookieStore,
  $http, sessionService) {
+    // $scope.isLoginExists = false;
 	$scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.signup = function () {
+        // $scope.isLoginExists = false;
         $modalInstance.dismiss('cancel');
         modalInstance = $modal.open({
             templateUrl: 'modalSignUpContent',
             controller: 'ButtonController'
         });
-        };
+    };
 
-    // $scope.loginExists = function() {
-    //     $http.get('/user/login/' + $scope.inputLogin)
-    //         .success(function() {
-    //             return false;
-    //         })
-    //         .error(function() {
-    //             return true;
-    //         })
-    // };
+    $scope.$watch("inputLogin", function() {
+        // console.log($scope.inputLogin);
+        $http.get('/user/login/' + $scope.inputLogin)
+        .success(function() {
+            $scope.isLoginExists = true;
+            // console.log("Is exests: " + $scope.isLoginExists);
+        })
+        .error(function() {
+            $scope.isLoginExists = false;
+            // console.log("Is exests: " + $scope.isLoginExists);
+        })
+    });
 
     $scope.signin = function () {
         $scope.statusAuth = false;
@@ -58,8 +63,8 @@ app.controller("ButtonController", function($scope, $modalInstance, $modal, $coo
     };
 
     $scope.register = function() {
-        if (loginExists() === false) {
-            $http.put('/user', {login: $scope.user, password: $scope.password})
+        if ($scope.isLoginExists === false) {
+            $http.put('/user', {login: $scope.inputLogin, password: $scope.inputPassword})
                 .success(function (data, status, headers, config) {
                     sessionService.createSession(data._id, data.login, data.role);
                     $scope.statusAuth = true;
