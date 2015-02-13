@@ -7,48 +7,70 @@ exports.getAll = function (handleCallback) {
     common.getFromCollectionByFilter('User', {}, handleCallback);
 };
 
-exports.getById = function (id, handleCallback, errorCallback) {
-    getUserByFilterWithRole({"_id": ObjectID(id)}, handleCallback, errorCallback);
+exports.getById = function (id, handleCallback) {
+    getUserByFilterWithRole({"_id": ObjectID(id)}, {password: 0}, handleCallback);
 };
 
-exports.getByLogin = function (login, handleCallback, errorCallback) {
-    getUserByFilterWithRole({"login": login}, handleCallback, errorCallback);
+exports.getByLogin = function (login, handleCallback) {
+    getUserByFilterWithRole({"login": login}, {"_id": 1}, handleCallback);
 };
 
-var getUserByFilterWithRole = function (filter, callback, errorCallback) {
+exports.authorization = function (login, handleCallback) {
+    getUserByFilterWithRole({"login": login}, {}, handleCallback);
+};
+
+exports.registration = function (user, callback) {
     connectToDataBase(function (db) {
-        db.collection('User').find(filter).toArray(function (err, resultsUser) {
-            if (err) next(err);
-            if (resultsUser.length === 0) {
-
-                logger.warn("Login not exists!");
-                errorCallback(403, "Login not exists!");
-                logger.warn("db close");
-                db.close();
-                return;
+        var collUser = db.collection('User');
+        collUser.findOne({"login": user.login}, {"_id": 1}, function (err, userDB) {
+            if (err) {
+                next(err);
             }
-            var user = resultsUser[0];
-            logger.info("User loaded %s", user.login);
-            var cursor = db.collection('Role').find({"_id": ObjectID(user.id_role)});
-            cursor.toArray(function (err, resultsRole) {
-                if (err) next(err);
-                if (resultsRole.length === 0) {
-                    logger.warn("No find role.");
-                    errorCallback(404);
-                    logger.warn("db close");
-                    db.close();
-                    return;
-                }
-                var role = resultsRole[0];
-                logger.info("Role loaded %s", role.name);
-                var results = user;
-                results.role = role.name;
-                callback(results, function () {
+            if (!userDB) {
+                collUser.insert(user, function (err, user) {
+                    if (err) {
+                        next(err);
+                    }
+                    logger.info("User added");
+                    delete user[0].password;
+                    callback(user[0], function () {
+                        logger.info("db close");
+                        db.close();
+                    });
+                });
+            } else {
+                callback(null, function () {
                     logger.info("db close");
                     db.close();
                 });
-            });
+            }
+        });
 
+    });
+};
+
+var getUserByFilterWithRole = function (filter, projection, callback) {
+    connectToDataBase(function (db) {
+        db.collection('User').findOne(filter, projection, function (err, user) {
+            if (err)
+                next(err);
+            callback(user, function (callback) {
+                delete user.password;
+                var roleCollection = db.collection('Role');
+                roleCollection.findOne({"_id": ObjectID(user.id_role)}, {"name": 1}, function (err, role) {
+                    if (err)
+                        next(err);
+                    if (role) {
+                        user.role = role.name;
+                        callback(user);
+                    } else {
+                        logger.warn("Role not found");
+                    }
+                });
+            }, function () {
+                logger.info("db close");
+                db.close();
+            });
         });
     });
 };

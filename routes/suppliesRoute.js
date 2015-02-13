@@ -1,5 +1,6 @@
 var mongodb = require('../db');
 var logger = require("../logger");
+var transmit = require("../transmit");
 
 exports.getAll = function (request, response) {
     mongodb.supplies.getAll(function (results, dbCloseCallback) {
@@ -12,7 +13,7 @@ exports.getByCategory = function (request, response) {
     var category = request.param('category');
     var reg = new RegExp(category, 'i');
     mongodb.supplies.getByCategory(reg, function (results, dbCloseCallback) {
-        handleResults(response, results);        
+        handleResults(response, results);
         dbCloseCallback();
     });
 };
@@ -26,8 +27,5 @@ var handleResults = function (response, results) {
             "lastModified": "now"
         });
     });
-    logger.debug("results: " + JSON.stringify(resultData, null, 4));
-    response.writeHead(200, {"Content-Type": "application/json"});
-    response.write(JSON.stringify(resultData));
-    response.end();
+    transmit.JSON(response, 200, resultData);
 };

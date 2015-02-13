@@ -13,15 +13,15 @@ app.controller("ButtonController", function($scope, $modalInstance, $modal, $coo
         });
         };
 
-    $scope.loginExists = function() {
-        $http.get('/user/login/' + $scope.inputLogin)
-            .success(function() {
-                return false;
-            })
-            .error(function() {
-                return true;
-            })
-    };
+    // $scope.loginExists = function() {
+    //     $http.get('/user/login/' + $scope.inputLogin)
+    //         .success(function() {
+    //             return false;
+    //         })
+    //         .error(function() {
+    //             return true;
+    //         })
+    // };
 
     $scope.signin = function () {
         $scope.statusAuth = false;
@@ -57,13 +57,14 @@ app.controller("ButtonController", function($scope, $modalInstance, $modal, $coo
         }
     };
 
-    //future register and put-query
     $scope.register = function() {
         if (loginExists() === false) {
-            $http.put('/registerUser', {login: $scope.user, password: $scope.password})
+            $http.put('/user', {login: $scope.user, password: $scope.password})
                 .success(function (data, status, headers, config) {
                     sessionService.createSession(data._id, data.login, data.role);
                     $scope.statusAuth = true;
+                    console.log("data:" + data.login);
+                    console.log("id:" + data._id);
                     document.location.href = "#supplies";
                     $scope.cancel()
             })

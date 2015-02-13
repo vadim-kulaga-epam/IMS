@@ -164,24 +164,24 @@
 
     app.controller('suppliesController', ['$http', '$scope', function ($http, $scope) {
             console.log("supplies!");
-            $http.get("/user/login/admin")
-                    .success(function (data, status, headers, config) {
-                        $scope.items = data;
-                        console.log("Success!");
-                        console.log("data:" + data);
-                        console.log("login:" + data.login);
-                        console.log("password:" + data.password);
-                        console.log("status:" + status);
-                        console.log("headers:" + headers);
-                        console.log("config:" + config);
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log("Error!");
-                        console.log("data:" + data);
-                        console.log("status:" + status);
-                        console.log("headers:" + headers);
-                        console.log("config:" + config);
-                    });
+            // $http.get("/user/login/admin")
+            //         .success(function (data, status, headers, config) {
+            //             $scope.items = data;
+            //             console.log("Success!");
+            //             console.log("data:" + data);
+            //             console.log("login:" + data.login);
+            //             console.log("password:" + data.password);
+            //             console.log("status:" + status);
+            //             console.log("headers:" + headers);
+            //             console.log("config:" + config);
+            //         })
+            //         .error(function (data, status, headers, config) {
+            //             console.log("Error!");
+            //             console.log("data:" + data);
+            //             console.log("status:" + status);
+            //             console.log("headers:" + headers);
+            //             console.log("config:" + config);
+            //         });
         }]);
 
     app.controller('settingsController', function ($scope) {
