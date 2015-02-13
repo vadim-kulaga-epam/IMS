@@ -24,13 +24,14 @@
                <h4 class="modal-title" id="signupLabel" style="color: #000" align="center">Please sign up {{user}}</h4>
              </div>
              <div class="modal-body">
-               <form class="form-signin">
+               <form class="form-signin" name="registerForm" novalidate>
                  <label class="sr-only">Login</label>
-                 <input class="form-control" placeholder="Login">
+                  <span class="label label-danger" ng-show="loginExists()">minlength = 5!</span>
+                 <input class="form-control" placeholder="Login" ng-model="inputLogin">
                  <label class="sr-only">Password</label>
                  <input class="form-control" placeholder="Password">
                  <br>
-                 <a class="btn btn-lg btn-primary btn-block" ng-click="cancel()">Register</a>
+                 <a class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</a>
                </form>
              </div>
              <div class="modal-footer">
@@ -51,11 +52,12 @@
                   <label class="sr-only">Password</label>
                   <input class="form-control" placeholder="Password" ng-model="password">
                   <br>
-                  <div class="alert alert-danger" ng-show="displayErrorMessage" role="alert">{{errorMessage}}</div>
-                  <button class="btn btn-danger" ng-click="signin()">Sign in</button>
+                  <div class="alert alert-danger" ng-show="displayErrorMessage" 
+                    role="alert">{{errorMessage}}</div>
+                  <input type="submit" class="btn btn-danger" ng-click="signin()" value="Sign in">
                   <p>If you don&apos;t want to enter login and password manually use the link below<p>
-                  <!--<a href="#supplies"  class="btn btn-lg btn-default btn-block" ng-click="cancel()">Login to IMS</a> -->
-                  <button class="btn btn-lg btn-default btn-block" ng-click="signin()">Login to IMS</button>
+                  <button class="btn btn-lg btn-default btn-block"
+                    ng-click="signin()">Login to IMS</button>
                   <div>
                     <br>
                     <p><strong>IMS</strong> &mdash; Item Management System</p>
