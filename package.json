@@ -7,6 +7,8 @@
     "socket.io" : "0.9.16",
     "ws" : "0.4.31",
     "mongodb": "1.4.30",
-    "express": "3.19.2"
+    "express": "3.19.2",
+    "winston":"0.9.0",
+    "async":"0.9.0"
   }
 }

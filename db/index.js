@@ -1,33 +1,46 @@
+var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
-//var ObjectID = require('mongodb').ObjectID;
+var config = require("../config");
+var logger = require("../logger");
 
-// Connection URL
-var url = 'mongodb://diralf:qwerty@ds041851.mongolab.com:41851/ims';
+exports.supplies = require("./suppliesQuery");
+exports.category = require("./categoryQuery");
+exports.user = require("./userQuery");
+exports.role = require("./roleQuery");
 
-var findBase = function (filter, callback) {
-  MongoClient.connect(url, function (err, db) {
-    if (err) {
-      console.log(err);
-      console.log("Error: unable to connect to database");
-      return;
-    }
-    console.log("Connected correctly to server");
-    var collItem = db.collection('Item');
-    var cursor = collItem.find(filter);
-    cursor.toArray(function (err, results) {
-      console.log("db loaded");
-      var dataRes = results;
-      callback(results, function () {
-        console.log("db close");
-        db.close();
-      });
-    });
-  });
+var url = 'mongodb://'
+        + config.dbUser + ':'
+        + config.dbPassword + '@'
+        + config.dbURL;
+
+var connect = function (callback) {
+    logger.debug("Connecting to database...");
+    MongoClient.connect(url, callback);
 };
 
-exports.getAll = function (callback) {
-  findBase({}, callback);
+var close = function (db, callback) {
+    logger.debug("Closing to database...");
+    db.close();
 };
 
+var query = function (query, criteria, callbackResponse) {
+    return function (db, callbackDB) {
+        logger.debug("Doing query...");
+        query(db, criteria, function (err, db, result) {
+            if (err) {
+                if (err.http_code) {
+                    callbackResponse(err);
+                } else
+                    next(err);
+            } else {
+                callbackResponse(null, result);
+            }
+            callbackDB(null, db);
+        });
+    };
+};
 
+exports.connect = connect;
+exports.close = close;
+exports.query = query;
 
