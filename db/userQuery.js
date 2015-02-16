@@ -1,78 +1,87 @@
-var connectToDataBase = require("./connectorMongoDB");
-var common = require("./common");
-var logger = require("../logger");
+var async = require('async');
 var ObjectID = require('mongodb').ObjectID;
+var logger = require("../logger");
+var role = require('./roleQuery');
 
-exports.getAll = function (handleCallback) {
-    common.getFromCollectionByFilter('User', {}, handleCallback);
-};
-
-exports.getById = function (id, handleCallback) {
-    getUserByFilterWithRole({"_id": ObjectID(id)}, {password: 0}, handleCallback);
-};
-
-exports.getByLogin = function (login, handleCallback) {
-    getUserByFilterWithRole({"login": login}, {"_id": 1}, handleCallback);
-};
-
-exports.authorization = function (login, handleCallback) {
-    getUserByFilterWithRole({"login": login}, {}, handleCallback);
-};
-
-exports.registration = function (user, callback) {
-    connectToDataBase(function (db) {
-        var collUser = db.collection('User');
-        collUser.findOne({"login": user.login}, {"_id": 1}, function (err, userDB) {
-            if (err) {
-                next(err);
-            }
-            if (!userDB) {
-                collUser.insert(user, function (err, user) {
-                    if (err) {
-                        next(err);
-                    }
-                    logger.info("User added");
-                    delete user[0].password;
-                    callback(user[0], function () {
-                        logger.info("db close");
-                        db.close();
-                    });
-                });
-            } else {
-                callback(null, function () {
-                    logger.info("db close");
-                    db.close();
-                });
-            }
-        });
-
+var getAll = function (db, criteria, callback) {
+    db.collection('User').find(criteria,{password:0}).toArray(function (err, result) {
+        callback(err, db, result);
     });
 };
 
-var getUserByFilterWithRole = function (filter, projection, callback) {
-    connectToDataBase(function (db) {
-        db.collection('User').findOne(filter, projection, function (err, user) {
-            if (err)
-                next(err);
-            callback(user, function (callback) {
-                delete user.password;
-                var roleCollection = db.collection('Role');
-                roleCollection.findOne({"_id": ObjectID(user.id_role)}, {"name": 1}, function (err, role) {
-                    if (err)
-                        next(err);
-                    if (role) {
-                        user.role = role.name;
-                        callback(user);
-                    } else {
-                        logger.warn("Role not found");
-                    }
-                });
-            }, function () {
-                logger.info("db close");
-                db.close();
+var getOneById = async.seq(
+        function (db, id, callback) {
+            var coll = db.collection('User');
+            coll.findOne({"_id": ObjectID(id)}, {password: 0}, function (err, result) {
+                if (err)
+                    next(err);
+                if (!result) {
+                    err = new Error("User not found");
+                    err.http_code = 404;
+                }
+                callback(err, db, result);
             });
-        });
+        },
+        function (db, user, callback) {
+            role.getById(db, user.id_role, function (err, db, result) {
+                if (!err)
+                    user.role = result.name;
+                callback(null, db, user);
+            });
+        }
+);
+
+var getOneByLogin = function (db, login, callback) {
+    var coll = db.collection('User');
+    coll.findOne({"login": login}, function (err, result) {
+        callback(err, db, result);
     });
 };
 
+var insertUser = function (db, user, callback) {
+    db.collection("User").insert(user, function (err, result) {
+        callback(err, db, result);
+    });
+};
 
+var authorization = async.seq(
+        function (db, login, callback) {
+            getOneByLogin(db, login, function (err, db, result) {
+                if (err)
+                    next(err);
+                if (!result) {
+                    err = new Error("Login not exists!");
+                    err.http_code = 403;
+                }
+                callback(err, db, result);
+            });
+        },
+        function (db, user, callback) {
+            role.getById(db, user.id_role, function (err, db, result) {
+                if (!err)
+                    user.role = result.name;
+                callback(null, db, user);
+            });
+        }
+);
+
+var registration = async.seq(
+        function (db, userNew, callback) {
+            getOneByLogin(db, userNew.login, function (err, db, result) {
+                if (err)
+                    next(err);
+                if (result) {
+                    err = new Error("User exists");
+                    err.http_code = 403;
+                }
+                callback(err, db, userNew);
+            });
+        },
+        insertUser
+);
+
+exports.getAll = getAll;
+exports.getById = getOneById;
+exports.getByLogin = getOneByLogin;
+exports.authorization = authorization;
+exports.registration = registration;

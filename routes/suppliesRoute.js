@@ -1,21 +1,34 @@
+var async = require('async');
 var mongodb = require('../db');
 var logger = require("../logger");
 var transmit = require("../transmit");
 
 exports.getAll = function (request, response) {
-    mongodb.supplies.getAll(function (results, dbCloseCallback) {
-        handleResults(response, results);
-        dbCloseCallback();
-    });
+    async.waterfall([
+        mongodb.connect,
+        mongodb.query(mongodb.supplies.getAll, {}, function (err, result) {
+            if (err) 
+                next(err); 
+            handleResults(response, result);
+        }),
+        mongodb.close
+    ]);
 };
 
 exports.getByCategory = function (request, response) {
     var category = request.param('category');
-    var reg = new RegExp(category, 'i');
-    mongodb.supplies.getByCategory(reg, function (results, dbCloseCallback) {
-        handleResults(response, results);
-        dbCloseCallback();
-    });
+    logger.debug("Begin supplies category=%s", category);
+    async.waterfall([
+        mongodb.connect,
+        mongodb.query(mongodb.supplies.getByCategory, category, function (err, results) {
+            if (err) {
+                transmit.error(response, err.http_code, err.message);
+                return;
+            }    
+            handleResults(response, results);
+        }),
+        mongodb.close
+    ]);
 };
 
 var handleResults = function (response, results) {

@@ -1,23 +1,25 @@
-var common = require("./common");
+var async = require('async');
 var logger = require("../logger");
+var ObjectID = require('mongodb').ObjectID;
 
-//exports.getAll = function (handleCallback) {
-//    common.getFromCollectionByFilter('Role', {}, handleCallback);
-//};
-//
-//exports.getFromCollectionByFilter = function (collection, filter, handleCallback) {
-//    connectToDataBase(function (db) {
-//        db.collection(collection).find(filter).toArray(function (err, result) {
-//            logger.info("db loaded");
-//            handleCallback(result, function () {
-//                logger.info("db close");
-//                db.close();
-//            });
-//        });
-//    });
-//};
-
-exports.getAll = function (callback, db) {
-    logger.debug(arguments);
-    db.collection('Role').find().toArray(callback);
+var getAll = function (db, criteria, callback) {
+    db.collection('Role').find(criteria).toArray(function (err, result) {
+        callback(err, db, result);
+    });
 };
+
+var getOneById = function (db, idRole, callback) {
+    var coll = db.collection('Role');
+    coll.findOne({"_id": ObjectID(idRole)}, function (err, result) {
+        if (err)
+            next(err);
+        if (!result) {
+            err = new Error("Role not found");
+            err.http_code = 404;
+        }
+        callback(err, db, result);
+    });
+};
+
+exports.getAll = getAll;
+exports.getById = getOneById;
